@@ -15,22 +15,23 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class mainBaseClass {
-	public static WebDriver driver;
-	public static Properties prop;
+public class MainBaseClass {
+//	public static WebDriver driver;
+//	public static Properties prop;
 
-	public mainBaseClass() {
-	
+	public MainBaseClass() {
+		
+	}
+	static {
 		try {
-			prop=new Properties();
-			FileInputStream fis=new FileInputStream("C:\\Users\\Lenovo\\eclipse-workspace\\com.UrbanLadder\\src\\main\\resources\\config.properties");
-			prop.load(fis);
+			Constants.prop=new Properties();
+			FileInputStream fis=new FileInputStream("src\\main\\resources\\config.properties");
+			Constants.prop.load(fis);
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	public static void openBrowser(String browserName) {
 
@@ -38,58 +39,58 @@ public class mainBaseClass {
 
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			Constants.driver = new ChromeDriver();
 			break;
 
 		case "firefox":
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
+			Constants.driver = new FirefoxDriver();
 			break;
 
 		case "IE":
 			WebDriverManager.iedriver().setup();
-			driver = new InternetExplorerDriver();
+			Constants.driver = new InternetExplorerDriver();
 			break;
 
 		case "HtmlUnit":
-			driver = new HtmlUnitDriver();
+			Constants.driver = new HtmlUnitDriver();
 			break;
 
 		default: System.err.println("Unable to open browser"+ "provide correct browser name");
 		}
 
-	driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		Constants.driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
 
 	}	  
 
 	public static void maximize() {
-		driver.manage().window().maximize();
+		Constants.driver.manage().window().maximize();
 
 	}
 
 	public static void implicitWait(int duration) {
-		driver.manage().timeouts().implicitlyWait(duration, TimeUnit.SECONDS);
+		Constants.driver.manage().timeouts().implicitlyWait(duration, TimeUnit.SECONDS);
 	}
 
 	public static  void deleteAllCookies() {
-		driver.manage().deleteAllCookies();
+		Constants.driver.manage().deleteAllCookies();
 	}
 	
 	
 
 	public static void tearDown() {
-		driver.close();
+		Constants.driver.close();
 	}	
 	public static void explicitWait(int duration) {
-		FluentWait	wait=new FluentWait(driver);
+		FluentWait	wait=new FluentWait(Constants.driver);
 		wait.withTimeout(duration, TimeUnit.SECONDS);
 	}
 
 
-	public static  void openUrl() {
+	public static  void openUrl(String url) {
 
-		driver.get("https://www.urbanladder.com/");
+		Constants.driver.get(url);
 	}
 
 
