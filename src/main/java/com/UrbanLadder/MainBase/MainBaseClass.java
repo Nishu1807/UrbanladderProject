@@ -82,6 +82,7 @@ public class MainBaseClass {
 	public static void tearDown() {
 		Constants.driver.close();
 	}	
+	
 	public static void explicitWait(int duration) {
 		FluentWait	wait=new FluentWait(Constants.driver);
 		wait.withTimeout(duration, TimeUnit.SECONDS);

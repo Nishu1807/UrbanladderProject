@@ -9,62 +9,92 @@ import com.UrbanLadder.MainBase.Constants;
 
 public class SignupPage {
 	
-//	@FindBy(xpath="//input[@class='textfield email required input_authentication email-suggest']")
-//	WebElement textbox;
-	By emailTextbox=By.xpath("//input[@class='textfield email required input_authentication email-suggest']");
-		
-	By passwordTextbox=By.xpath("//div[@class='password']//input[2]");
+	@FindBy(xpath="//form[@id='signup_form']//input[@id='spree_user_email']")
+	WebElement textbox;
+	//By emailTextbox=By.xpath("//input[@class='textfield email required input_authentication email-suggest']");
 	
-	By showPasswordLink=By.xpath("//a[normalize-space()='Show Password']");
+	@FindBy(xpath="//div[@id='signup-module']//div//input[2]")
+	WebElement passwordTextbox;
 	
-	By hidePasswordLink=By.xpath("//a[normalize-space()='Hide Password']");
+	@FindBy(xpath="//a[normalize-space()='Show Password']")
+	WebElement showPasswordLink;
 	
-	By signUp=By.xpath("//input[@value='Sign Up']");
+	@FindBy(xpath="//a[normalize-space()='Hide Password']")
+	WebElement hidePasswordLink;
 	
-	By login=By.cssSelector("a[class='login-link link-color']");
-	By signupBack=By.xpath("//a[@class='signup-link link-color']");
+	@FindBy(xpath="//input[@value='Sign Up']")
+	WebElement signUp;
+	
+	@FindBy(xpath="//label[@for='spree_user_email']")
+	WebElement emailError;
+	
+	@FindBy(xpath="//label[@for='spree_user_password']")
+	WebElement passwordError;
+	
+	@FindBy(xpath="//a[@class='login-link link-color']")
+	WebElement loginLink;
+	
+	@FindBy(xpath="//a[@class='signup-link link-color']")
+	WebElement signupBack;
+	
+	@FindBy(xpath="//a[@id='facebook_login']")
+	WebElement connectToFacebook;
+	
+	@FindBy(xpath="//a[@id='google_login']")
+	WebElement connectToGoogle;
+	
+//	@FindBy(xpath="//a[@id='logout']")
+//	WebElement logout;
 	
 	public void enterEmailIdOnTextbox(String email) {
-		Constants.driver.findElement(emailTextbox).click();
-		Constants.driver.findElement(emailTextbox).clear();
-		Constants.driver.findElement(emailTextbox).sendKeys(email);
-//		textbox.click();
-//		textbox.clear();
-//		textbox.sendKeys(email);
+		textbox.click();
+		textbox.clear();
+		textbox.sendKeys(email);
 	}
 
 	public void enterPasswordOnTextbox(String password) {
-		Constants.driver.findElement(passwordTextbox).click();
-		Constants.driver.findElement(passwordTextbox).clear();
-		Constants.driver.findElement(passwordTextbox).sendKeys(password);
+		passwordTextbox.click();
+		passwordTextbox.clear();
+		passwordTextbox.sendKeys(password);
 	}
 	
 	public void verifyShowAndHidePasswordlink() {
-		Constants.driver.findElement(showPasswordLink).click();
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-		Constants.driver.findElement(hidePasswordLink).click();
+		showPasswordLink.click();
+		hidePasswordLink.click();
 	}
 	
 	public void clickOnSignUpButton() {
-		Constants.driver.findElement(signUp).click();
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		signUp.click();
 	}
 	
-	public void clickOnLoginink() {
-		Constants.driver.findElement(login).click();
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		Constants.driver.findElement(signupBack).click();
+	public String getEmailErrorMessage() {
+		return emailError.getText();
 	}
+	
+	public String getPasswordErrorMessage() {
+		return passwordError.getText();
+		
+	}
+	public void clickOnLoginink() {
+		loginLink.click();
+				
+		signupBack.click();
+	}
+	
+	public void clickOnConnectToFacebookLink() {
+		connectToFacebook.click();
+	}
+	public void clickOnConnectToGoogleLink() {
+		connectToGoogle.click();
+	}
+	public void executeSignupFlow(String email, String password) {
+		enterEmailIdOnTextbox(email);
+		enterPasswordOnTextbox(password);
+		verifyShowAndHidePasswordlink();
+		clickOnSignUpButton();
+	}
+	
+//	public boolean verifyLogo() {
+//		return logo.isDisplayed();
+//	}
 }

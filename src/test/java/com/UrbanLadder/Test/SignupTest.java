@@ -1,6 +1,8 @@
 package com.UrbanLadder.Test;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,8 +13,7 @@ import com.UrbanLadder.pages.SignupPage;
 
 public class SignupTest {
 	
-	//SignupPage signup=PageFactory.initElements(Constants.driver, SignupPage.class);
-	SignupPage signup = new SignupPage();
+	SignupPage signup = null;
 	@BeforeClass
 	public void intializingBrowser() {	
 		try {
@@ -21,38 +22,53 @@ public class SignupTest {
 			e.printStackTrace();
 		}
 		MainBaseClass.openBrowser(Constants.prop.getProperty("browser"));
+		signup =PageFactory.initElements(Constants.driver, SignupPage.class);
 		MainBaseClass.maximize();
+		MainBaseClass.deleteAllCookies();
 		MainBaseClass.openUrl(Constants.prop.getProperty("url"));
 		
-		
 	}
-		
+	
 	@Test(priority=1)
-	public void enterEmailIdOnTextboxTest() {
-		signup.enterEmailIdOnTextbox(Constants.prop.getProperty("email"));
-		
+	public void signupWithValidEmailAndInvalidPasswordTest() {
+		signup.executeSignupFlow(Constants.prop.getProperty("email"), Constants.prop.getProperty("invalidPassword"));
+		String label=signup.getPasswordErrorMessage();
+		Assert.assertEquals(label, "Please enter at least 8 characters.");
 	}
 	
 	@Test(priority=2)
-	public void enterPasswordOnTextboxTest() {
-		signup.enterPasswordOnTextbox(Constants.prop.getProperty("password"));
-			
+	public void signupWithInvalidEmailAndValidPasswordTest() {
+		signup.executeSignupFlow(Constants.prop.getProperty("invalidEmail"), Constants.prop.getProperty("password"));
+		String label=signup.getEmailErrorMessage();
+		Assert.assertEquals(label, "Please enter a valid email address.");
 	}
 	
 	@Test(priority=3)
-	public void verifyShowAndPasswordlinkTest()  {
-		signup.verifyShowAndHidePasswordlink();
-		
-	}
-	
-	@Test(priority=5)
-	public void clickOnSignUpButtonTest() {
-		signup.clickOnSignUpButton();
+	public void signupWithBlankEmailAndValidPasswordTest() {
+		signup.executeSignupFlow(Constants.prop.getProperty("blankEmail"), Constants.prop.getProperty("password"));
+		String label=signup.getEmailErrorMessage();
+		Assert.assertEquals(label, "This field is required.");
 	}
 	
 	@Test(priority=4)
-	public void clickOnLoginLink() {
-		signup.clickOnLoginink();
+	public void signupWithValidEmailAndBlankPasswordTest() {
+		signup.executeSignupFlow(Constants.prop.getProperty("email"), Constants.prop.getProperty("blankPassword"));
+		String label=signup.getPasswordErrorMessage();
+		Assert.assertEquals(label, "This field is required.");
+	}
+	
+	@Test(priority=5)
+	public void signupWithBlankEmailAndBlankPassword() {
+		signup.executeSignupFlow(Constants.prop.getProperty("blankEmail"), Constants.prop.getProperty("blankPassword"));
+		String label=signup.getEmailErrorMessage();
+		String label1=signup.getPasswordErrorMessage();
+		Assert.assertEquals(label, "This field is required.");
+		Assert.assertEquals(label1, "This field is required.");
+	}
+	
+	@Test(priority=6)
+	public void signupWithValidCredentialTest() {
+		signup.executeSignupFlow(Constants.prop.getProperty("email"),Constants.prop.getProperty("password"));
 	}
 	
 	@AfterClass
