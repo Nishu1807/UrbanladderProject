@@ -6,10 +6,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.UrbanLadder.MainBase.mainBaseClass;
+import com.UrbanLadder.MainBase.Constants;
+import com.UrbanLadder.MainBase.MainBaseClass;
+
 import com.UrbanLadder.pages.LoginPage;
 
-public class loginTest extends mainBaseClass {
+public class loginTest extends MainBaseClass {
 	
      LoginPage page; 
      
@@ -19,7 +21,7 @@ public class loginTest extends mainBaseClass {
 	@Test(priority=0)
 	//@BeforeMethod
 	public void setUp() {
-		openBrowser("chrome");
+		openBrowser();
 		openUrl();
 		page = new LoginPage();
 	}

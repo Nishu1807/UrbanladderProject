@@ -33,8 +33,9 @@ public class MainBaseClass {
 			e.printStackTrace();
 		}
 	}
-	public static void openBrowser(String browserName) {
+	public static void openBrowser() {
 
+	String browserName=Constants.prop.getProperty("browser");
 		switch (browserName) {
 
 		case "chrome":
@@ -89,9 +90,9 @@ public class MainBaseClass {
 	}
 
 
-	public static  void openUrl(String url) {
+	public static  void openUrl() {
 
-		Constants.driver.get(url);
+		Constants.driver.get(Constants.prop.getProperty("url"));
 	}
 
 

@@ -2,20 +2,23 @@ package com.UrbanLadder.pages;
 
 
 
+import org.apache.bcel.classfile.Constant;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.UrbanLadder.MainBase.mainBaseClass;
+import com.UrbanLadder.MainBase.Constants;
+import com.UrbanLadder.MainBase.MainBaseClass;
 
-public class LoginPage extends mainBaseClass {
+
+public class LoginPage extends MainBaseClass {
 
 	
 
 	public LoginPage() {
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(Constants.driver, this);
 	
 	
 }
@@ -40,23 +43,23 @@ WebElement password;
 WebElement loginButton;*/
 
 public void CloseTab() {
-	driver.findElement(closeTab);
+	Constants.driver.findElement(closeTab);
 }
 
 
 public void clickOnLoginButton() throws InterruptedException {
-Actions action=new Actions(driver);
-action.moveToElement(driver.findElement(loginlogo)).build().perform();
-driver.findElement(logIn).click();
-Thread.sleep(3000);
+     Constants.action=new Actions(Constants.driver);
+	Constants.action.moveToElement(Constants.driver.findElement(loginlogo)).build().perform();
+	Constants.driver.findElement(logIn).click();
+     Thread.sleep(3000);
 }  
 
 public void EnterEmailAndPassword() {	
 //emailId.sendKeys("a.m.sonale1336@gmail.com");
-driver.findElement(EmailId).click();
-driver.findElement(EmailId).sendKeys("urbanladder01@gmail.com");
-driver.findElement(password).sendKeys("urbantest123");
-driver.findElement(LogInButton).click();
+	Constants.driver.findElement(EmailId).click();
+	Constants.driver.findElement(EmailId).sendKeys("urbanladder01@gmail.com");
+	Constants.driver.findElement(password).sendKeys("urbantest123");
+	Constants.driver.findElement(LogInButton).click();
 }  
 }   
  
