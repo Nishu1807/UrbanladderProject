@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.Listeners;
 
 import com.UrbanLadder.MainBase.Constants;
 import com.UrbanLadder.MainBase.MainBaseClass;
@@ -23,7 +24,7 @@ public class LoginPage extends MainBaseClass {
 	
 }
 
-By closeTab=By.xpath("//a[@class='close-reveal-modal hide-mobile']");	
+By closeTab=By.xpath("//a[normalize-space()='Close']");	
 By loginlogo=By.xpath("//span[@class='header-icon-link user-profile-icon']");
 //By logIn=By.xpath("//a[@class='login-link authentication_popup']");
 By logIn=By.xpath("//ul[@class='dropdown']//a[@class='login-link authentication_popup']");

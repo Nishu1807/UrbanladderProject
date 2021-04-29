@@ -11,7 +11,7 @@ import com.UrbanLadder.MainBase.Constants;
 import com.UrbanLadder.MainBase.MainBaseClass;
 import com.UrbanLadder.pages.SignupPage;
 
-public class SignupTest {
+public class SignupTest extends MainBaseClass{
 	
 	SignupPage signup = null;
 	@BeforeClass
@@ -21,11 +21,11 @@ public class SignupTest {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		MainBaseClass.openBrowser(Constants.prop.getProperty("browser"));
+		openBrowser();
 		signup =PageFactory.initElements(Constants.driver, SignupPage.class);
 		MainBaseClass.maximize();
 		MainBaseClass.deleteAllCookies();
-		MainBaseClass.openUrl(Constants.prop.getProperty("url"));
+		openUrl();
 		
 	}
 	

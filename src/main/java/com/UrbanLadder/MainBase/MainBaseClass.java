@@ -12,13 +12,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.log4testng.Logger;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class MainBaseClass {
 //	public static WebDriver driver;
 //	public static Properties prop;
-
+	public static Logger log=Logger.getLogger(MainBaseClass.class);
 	public MainBaseClass() {
 		
 	}
@@ -27,6 +28,7 @@ public class MainBaseClass {
 			Constants.prop=new Properties();
 			FileInputStream fis=new FileInputStream("src\\main\\resources\\config.properties");
 			Constants.prop.load(fis);
+			log.info("Configuration file is loaded");
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}catch(IOException e) {
@@ -59,6 +61,9 @@ public class MainBaseClass {
 
 		default: System.err.println("Unable to open browser"+ "provide correct browser name");
 		}
+		
+		log.info(browserName +"Launching Browser");
+		
 
 		Constants.driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
@@ -93,6 +98,7 @@ public class MainBaseClass {
 	public static  void openUrl() {
 
 		Constants.driver.get(Constants.prop.getProperty("url"));
+		log.info("URL Lauched");
 	}
 
 
